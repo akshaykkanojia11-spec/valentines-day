@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         body { 
             display: flex; 
@@ -52,20 +53,21 @@
         #yesBtn { 
             background-color: #ff4d6d; 
             color: white; 
-            z-index: 1; /* Ensures Yes is reachable */
+            z-index: 1; 
         }
 
         #noBtn { 
             background-color: #adb5bd; 
             color: white; 
             position: absolute;
-            left: 58%; /* Starts it to the right of center */
+            left: 58%; 
         }
     </style>
 </head>
 <body>
 
-    <img id="status-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpN78i5E7Ff/giphy.gif" alt="Cute bear">
+    <img id="status-img" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2NtNTNyOXI2NTRwbGVjajl1M2ExcHQ5MHEydndkcjF0YWpjemgzZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Rik9n81Vda3rzr5F8h/giphy.gif" alt="Cute GIF">
+    
     <h1 id="question">Will you be my Valentine? ❤️</h1>
     
     <div class="btn-container" id="button-box">
@@ -73,37 +75,50 @@
         <button id="noBtn">No</button>
     </div>
 
+    <audio id="valentineMusic">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
         const statusImg = document.getElementById('status-img');
         const question = document.getElementById('question');
         const buttonBox = document.getElementById('button-box');
+        const music = document.getElementById('valentineMusic');
 
-        // Function to move the No button
+        // Logic to move the "No" button
         const moveButton = () => {
-            // This math ensures the button stays within the visible screen
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
             
-            noBtn.style.position = 'fixed'; // Switches to fixed so it can go anywhere
+            noBtn.style.position = 'fixed';
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         };
 
         noBtn.addEventListener('mouseover', moveButton);
         noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // Prevents accidental clicks on mobile
+            e.preventDefault();
             moveButton();
         });
 
-        // SUCCESS ACTION
+        // "Yes" Click Action
         yesBtn.addEventListener('click', () => {
-            question.innerHTML = "Yay! I love you!! 😘";
+            question.innerHTML = "Yay! See you on the 14th! 😘";
+            
+            // You can replace this second GIF with another one for the "Success" state
             statusImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif";
-            buttonBox.style.display = 'none'; // Hides both buttons
-        });
-    </script>
-</body>
-</html>
+            
+            buttonBox.style.display = 'none';
+
+            // Start Music
+            music.play();
+
+            // Trigger Confetti
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ff4d6d', '#ffafcc', '#ff8
 
