@@ -5,27 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
     <style>
-        #noBtn {
-    background-color: #adb5bd;
-    color: white;
-    padding: 10px 25px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    /* THIS IS THE CRITICAL LINE */
-    position: absolute; 
-    transition: 0.1s; /* Makes the jump look smoother */
-}
+        <style>
+    body { 
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        height: 100vh; 
+        margin: 0;
+        font-family: 'Arial', sans-serif; 
+        background-color: #ffe6e6; 
+        overflow: hidden; 
+        text-align: center; /* Ensures text stays centered */
+    }
+    
+    #status-img { 
+        width: 250px; 
+        border-radius: 20px; 
+        margin-bottom: 20px;
+    }
+
+    h1 { 
+        color: #d63384; 
+        font-size: 2.5rem; 
+        margin: 10px;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        height: 50px; /* Gives the buttons a "home" area */
+        width: 100%;
+        position: relative; /* This is key! */
+    }
+
+    button { 
+        font-size: 1.2rem; 
+        padding: 12px 25px; 
+        border: none; 
+        border-radius: 10px; 
+        cursor: pointer; 
+        font-weight: bold;
+    }
+
+    #yesBtn { 
+        background-color: #ff4d6d; 
+        color: white; 
+    }
+
+    #noBtn { 
+        background-color: #adb5bd; 
+        color: white; 
+        position: absolute; /* Keeps it movable without affecting "Yes" */
+    }
+</style>
     </style>
 </head>
 <body>
     <img id="status-img" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnhkMnUzM3dzbm5wZmx6eTQ4Y2RoaDJwbWxneGNnazM5YzRnYWY0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KX0swolOzQYiuWIuzH/giphy.gif">
     <h1 id="question">Will you be my Valentine? ❤️</h1>
     
-    <div class="buttons">
-        <button id="yesBtn">Yes!</button>
-        <button id="noBtn">No</button>
-    </div>
+    <div class="btn-container">
+    <button id="yesBtn">Yes!</button>
+    <button id="noBtn">No</button>
+</div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
