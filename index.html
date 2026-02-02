@@ -5,93 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Be My Valentine?</title>
     <style>
-        <style>
-    body { 
-        display: flex; 
-        flex-direction: column; 
-        align-items: center; 
-        justify-content: center; 
-        height: 100vh; 
-        margin: 0;
-        font-family: 'Arial', sans-serif; 
-        background-color: #ffe6e6; 
-        overflow: hidden; 
-        text-align: center; /* Ensures text stays centered */
-    }
-    
-    #status-img { 
-        width: 250px; 
-        border-radius: 20px; 
-        margin-bottom: 20px;
-    }
+        body { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center; 
+            height: 100vh; 
+            margin: 0;
+            font-family: 'Arial', sans-serif; 
+            background-color: #ffe6e6; 
+            overflow: hidden; 
+            text-align: center; 
+        }
+        
+        #status-img { 
+            width: 280px; 
+            border-radius: 20px; 
+            margin-bottom: 20px;
+        }
 
-    h1 { 
-        color: #d63384; 
-        font-size: 2.5rem; 
-        margin: 10px;
-    }
+        h1 { 
+            color: #d63384; 
+            font-size: 2.5rem; 
+            margin: 15px;
+        }
 
-    .btn-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-        height: 50px; /* Gives the buttons a "home" area */
-        width: 100%;
-        position: relative; /* This is key! */
-    }
+        .btn-container {
+            position: relative; 
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-    button { 
-        font-size: 1.2rem; 
-        padding: 12px 25px; 
-        border: none; 
-        border-radius: 10px; 
-        cursor: pointer; 
-        font-weight: bold;
-    }
+        button { 
+            font-size: 1.5rem; 
+            padding: 15px 30px; 
+            border: none; 
+            border-radius: 15px; 
+            cursor: pointer; 
+            font-weight: bold;
+            transition: 0.2s;
+        }
 
-    #yesBtn { 
-        background-color: #ff4d6d; 
-        color: white; 
-    }
+        #yesBtn { 
+            background-color: #ff4d6d; 
+            color: white; 
+            z-index: 1; /* Ensures Yes is reachable */
+        }
 
-    #noBtn { 
-        background-color: #adb5bd; 
-        color: white; 
-        position: absolute; /* Keeps it movable without affecting "Yes" */
-    }
-</style>
+        #noBtn { 
+            background-color: #adb5bd; 
+            color: white; 
+            position: absolute;
+            left: 58%; /* Starts it to the right of center */
+        }
     </style>
 </head>
 <body>
-    <img id="status-img" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnhkMnUzM3dzbm5wZmx6eTQ4Y2RoaDJwbWxneGNnazM5YzRnYWY0cCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/KX0swolOzQYiuWIuzH/giphy.gif">
+
+    <img id="status-img" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJLufpN78i5E7Ff/giphy.gif" alt="Cute bear">
     <h1 id="question">Will you be my Valentine? ❤️</h1>
     
-    <div class="btn-container">
-    <button id="yesBtn">Yes!</button>
-    <button id="noBtn">No</button>
-</div>
+    <div class="btn-container" id="button-box">
+        <button id="yesBtn">Yes!</button>
+        <button id="noBtn">No</button>
+    </div>
 
     <script>
+        const yesBtn = document.getElementById('yesBtn');
         const noBtn = document.getElementById('noBtn');
-const yesBtn = document.getElementById('yesBtn');
+        const statusImg = document.getElementById('status-img');
+        const question = document.getElementById('question');
+        const buttonBox = document.getElementById('button-box');
 
-noBtn.addEventListener('mouseover', moveButton);
-noBtn.addEventListener('touchstart', moveButton); // For mobile users!
+        // Function to move the No button
+        const moveButton = () => {
+            // This math ensures the button stays within the visible screen
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.position = 'fixed'; // Switches to fixed so it can go anywhere
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        };
 
-function moveButton() {
-    // Calculate random positions
-    // We subtract the button width/height so it doesn't go off-screen
-    const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
-    const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.addEventListener('mouseover', moveButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents accidental clicks on mobile
+            moveButton();
+        });
 
-    noBtn.style.left = `${x}px`;
-    noBtn.style.top = `${y}px`;
-
-    // Bonus: Make the Yes button grow every time she misses
-    const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-    yesBtn.style.fontSize = `${currentSize * 1.2}px`;
-}
+        // SUCCESS ACTION
+        yesBtn.addEventListener('click', () => {
+            question.innerHTML = "Yay! I love you!! 😘";
+            statusImg.src = "https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4bmZ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/KztT2c4u8mYYUiMKdJ/giphy.gif";
+            buttonBox.style.display = 'none'; // Hides both buttons
+        });
     </script>
 </body>
 </html>
+
